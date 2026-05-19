@@ -1,0 +1,1 @@
+# Consumiento servicios de IA con AZURE :D

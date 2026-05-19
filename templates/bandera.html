@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Bandera estilo histórica</h1>
+
+<canvas id="myCanvas" width="600" height="350" style="border:1px solid grey"></canvas>
+
+<script>
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+
+// Fondo rojo
+ctx.fillStyle = "#b30000";
+ctx.fillRect(0, 0, 600, 350);
+
+// Círculo blanco central
+ctx.beginPath();
+ctx.arc(300, 175, 90, 0, Math.PI * 2);
+ctx.fillStyle = "white";
+ctx.fill();
+
+// Símbolo geométrico negro (abstracto)
+ctx.fillStyle = "black";
+
+// Rectángulo vertical
+ctx.fillRect(285, 110, 30, 130);
+//superior
+ctx.fillRect(255, 110, 30, 30);
+//superior
+ctx.fillRect(315, 210, 30, 30);
+
+// Rectángulo horizontal
+ctx.fillRect(235, 160, 130, 30);
+// Rectángulo horizontal derecho
+ctx.fillRect(335, 130, 30, 30);
+// Rectángulo horizontal izquierdo
+ctx.fillRect(235, 185, 30, 30);
+
+
+// Bordes negros arriba y abajo
+ctx.fillRect(0, 0, 600, 20);
+ctx.fillRect(0, 330, 600, 20);
+
+</script>
+
+</body>
+</html>
