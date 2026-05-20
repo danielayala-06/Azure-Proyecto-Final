@@ -1,7 +1,6 @@
 /* 
     Este servicio permite identificar datos (informacion) clave en un documento Telefonos, nombres, edad, direccion, etc. 
 */
-
 require('dotenv').config()
 
 // Acceder a las variables
@@ -67,4 +66,9 @@ async function extraerDatos(){
         console.error(error.message)
     }
 }
-extraerDatos();
+
+// extraerDatos();
+// Obtenemos los datos del front-end
+document.addEventListener('DOMContentLoaded', ()=>{
+    
+});

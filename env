@@ -1,2 +1,7 @@
-suscriptionkey = ""
-endpoint = ""
+SUB_KEY = ""
+ENDPOINT = ""
+
+RECONGNITION_API_FOUNDRY = ""
+FOUNDRY_ENPOINT = ""
+
+PORT=3000   
