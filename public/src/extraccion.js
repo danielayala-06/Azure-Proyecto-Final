@@ -6,23 +6,49 @@ const URL = `${host}:${port}/api/extraccion`;
 console.log(URL);
 // Obtenemos los datos del front-end
 document.addEventListener("DOMContentLoaded", () => {
+    // Referencia a los elementos de la vista
     const form = document.getElementById("form-text");
+    const containterRes = document.querySelector(".container-results");
+    const radioOptions = document.querySelectorAll(".form-check-input");
 
-    form.addEventListener("submit", (e) => {
+    // Detenemos el envio del formulario y enviamos los datos a AZURE
+    form.addEventListener("submit", async (e) => {
         e.preventDefault(); // Evitamos el envio del formulario(recargar la pagina)
 
+        // Obtenemos el valor del input en el formulario
         const inputText = document.getElementById("text-input").value;
-        enviarTextoExtraccion(inputText);
+
+        // Limpiamos el container de los resultados anteriores
+        containterRes.innerHTML = "";
+
+        // Enviamos los datos al backend espereando la respuesta
+        const results = await enviarTextoExtraccion(inputText);
+        console.log("===================resultados========================");
+        console.log(results);
+        // Obtenemos los filtros
+        let filtros = obtenerFiltros();
+
+        // Procesamos los datos (FILTROS)
+        const resultadosFiltrados = filtrarResultados(filtros, results.respuesta);
+
+        // Renderizamos los datos
+        resultadosFiltrados.forEach((result) => {
+            containterRes.appendChild(crearCard(result));
+        });
     });
 
+    // Funcion para enviar un texto a la API del backend y esperamos su respuesta
     async function enviarTextoExtraccion(text) {
+        // En caso el texto sea nullo
         if (!text) {
             throw new Error("El texto enviado esta vacio!");
         }
 
+        // Preparamos el texto para enviarlo al backend
         const data = { texto: text };
 
         try {
+            // Enviamos el texto al back
             const response = await fetch(URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -36,9 +62,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Obtenemos la respuesta:
             const res = await response.json();
-            console.log(res);
+
+            return res;
         } catch (error) {
             console.error(error.message);
+            throw new Error("Error al enviar los datos al backend");
         }
+    }
+
+    // Funcion para crear un card que contendra(UI) los resultados de AZURE
+    function crearCard(data) {
+        // Creamos el elemento div con ayuda del DOM
+        let div = document.createElement("div");
+
+        // Agregamos atributos al div
+        div.classList.add("card");
+        div.style.width = "13 rem;";
+
+        // Agregamos el cuerpo del card
+        div.innerHTML = ` <div class="card-body">
+                             <h5 class="card-title fs-5">${data.category}</h5>
+                             <p class="card-text">${data.text}</p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                             <li class="list-group-item">Confidence: ${(data.confidenceScore * 100).toFixed(2)}</li>
+                          </ul>`;
+        // Devolvemos el elemento previamente creado
+        return div;
+    }
+
+    data = {
+        category: "telefono",
+        text: "972694704",
+        confidence: 0.85,
+    };
+
+    // Funcion para obtener los filtros a aplicar
+    function obtenerFiltros() {
+        let optionsSelected = [];
+
+        radioOptions.forEach((option) => {
+            if (option.checked) optionsSelected.push(option.value);
+        });
+
+        return optionsSelected;
+    }
+
+    // Filtramos los resultados obtenidos
+    function filtrarResultados(filtros, res) {
+        let resultadosFiltrados = [];
+        // En caso de que no haya filtros
+        if (filtros.length === 0) return res;
+
+        res.forEach((result) => {
+            if (filtros.includes(result.category)) {
+                resultadosFiltrados.push(result);
+            }
+        });
+        return resultadosFiltrados;
     }
 });
