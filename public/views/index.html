@@ -4,171 +4,164 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index</title>
+    <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 </head>
+<style>
+    .card-hover {
+        transition: transform 0.3s ease;
+    }
+
+    .card-hover:hover {
+        transform: scale(1.02);
+    }
+</style>
 
 <body>
     <main>
         <div class="container mt-4">
-            <h1 class="fw-lighter">APLICACION DE SERVICIOS EN AZURE</h1>
+            <h1 class="">APLICACION DE SERVICIOS EN AZURE</h1>
 
             <!-- Contenedor de cards modulos -->
             <div class="container-modulos my-5 d-flex flex-wrap gap-3 justify-content-center">
-
                 <!-- Modulo de prueba -->
 
-                <!-- OCR -->
-                <div class="col-6">
-                    <a href="/ocr" class="text-decoration-none">
+                <!-- Extraccion -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/extraccion" class="text-decoration-none">
                         <div class="card h-100 shadow-sm border-0 text-center p-3">
                             <div class="card-body">
-                                <i class="bi bi-image fs-1 text-primary mb-3 d-block"></i>
-                                <h5 class="card-title fw-semibold text-dark">Azure OCR</h5>
-                                <p class="card-text text-muted small">Extrae texto de imágenes</p>
+                                <i class="bi bi-file-earmark-text fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Extraccion</h5>
+                                <p class="card-text text-muted small">
+                                    Extrae keywords de un texto
+                                </p>
                             </div>
                         </div>
                     </a>
                 </div>
-                <!-- Modulo extraccion -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Extraccion</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/extraccion" class="btn btn-outline-primary">Ir a extraccion</a>
+
+                <!-- Deteccion -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/deteccion" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-bullseye fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Deteccion</h5>
+                                <p class="card-text text-muted small">
+                                    Identifica objetos y sus posiciones
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
-                <!-- Modulo Analisis -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Analisis</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/analisis" class="btn btn-outline-primary">Ir a extraccion</a>
+                <!-- Analisis -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/analisis" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-eye fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Analisis</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza una imagen y devuelve un resumen de la imagen con
+                                    los objetos encontrados y sus ubicaciones
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo deteccion -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Deteccion</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/deteccion" class="btn btn-outline-primary">Ir a deteccion</a>
+                <!-- Imagen -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/imagen" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-eye fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Imagen</h5>
+                                <p class="card-text text-muted small">
+                                    Identifica una imagen devolviendo un resumen general con las
+                                    etiquetas encontradas
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo imagen -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Imagen</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/imagen" class="btn btn-outline-primary">Ir a imagen</a>
+                <!-- Sentimientos -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/sentimientos" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-search-heart fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Sentimientos</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza un texto y devuelve el sentimiento dominante del
+                                    texto
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo preguntas -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Preguntas</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/preguntas" class="btn btn-outline-primary">Ir a preguntas</a>
+                <!-- Anonimacion -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/anonimacion" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-incognito fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Anonimacion</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza los datos personales de un texto y los devuelve el
+                                    texto con los datos personales o sensibles ocultos
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo sentimientos -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Sentimientos</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/sentimientos" class="btn btn-outline-primary">Ir a sentimientos</a>
+                <!-- ocr -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/ocr" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-card-text fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Ocr</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza una imagen o documento y devuelve el texto
+                                    encontrado en el archivo
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo Anonimacion -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Anonimacion</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/anonimacion" class="btn btn-outline-primary">Ir a anonimacion</a>
+                <!-- Resumen -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/resumen" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-text-paragraph fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Resumen</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza un texto y devuelve un resumen en parrafos
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo ocr -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">OCR</h5>
-                        Un texto introductorio hacia el modulo de AZURE y algo mas de
-                        texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/ocr" class="btn btn-outline-primary">Ir a ocr</a>
+                <!-- Preguntas -->
+                <div class="border border-primary rounded-1 card-hover" style="width: 18rem">
+                    <a href="/preguntas" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 text-center p-3">
+                            <div class="card-body">
+                                <i class="bi bi-patch-question fs-1 text-primary mb-3 d-block"></i>
+                                <h5 class="card-title fw-semibold text-dark">Preguntas</h5>
+                                <p class="card-text text-muted small">
+                                    Analiza un texto y responde preguntas relacionadas al texto
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <!-- Modulo Resumen -->
-                <div class="card shadow" style="width: 18rem; height: 25rem">
-                    <img src="..." class="card-img-top h-100 bg-dark" alt="..." />
-                    <div class="card-body">
-                        <h5 class="card-title">Resumen</h5>
-                        <p class="card-text">
-                            Un texto introductorio hacia el modulo de AZURE y algo mas de
-                            texto tipo detalles y asi...
-                        </p>
-                        <div class="text-end">
-                            <a href="/resumen" class="btn btn-outline-primary">Ir a resumen</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <a href="/extraccion" class="btn">Ir a extraccion</a>
         </div>
     </main>
     <footer></footer>
