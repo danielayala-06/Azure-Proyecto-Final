@@ -23,6 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Obtenemos el valor del input en el formulario
         const inputText = document.getElementById("text-input").value;
 
+        // En caso de que no se haya insertado un texto
+        if (!inputText.trim()) {
+            alert("Debe introducir un texto antes de enviar el formulario");
+            toogleButtonEnviar();
+
+            return;
+        }
+
         // Limpiamos el container de los resultados anteriores
         containterRes.innerHTML = "";
 
@@ -47,7 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     async function enviarTextoExtraccion(text) {
         // En caso el texto sea nullo
         if (!text) {
-            throw new Error("El texto enviado esta vacio!");
+            console.error("El texto enviado esta vacio!");
+            return;
         }
 
         // Preparamos el texto para enviarlo al backend

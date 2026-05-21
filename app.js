@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express"); // Cargamos express
 const path = require("path"); // Rutaas de archivos para servir al FRONT
 
-const extracionRouter = require("./routers/extraccionRouter.js");
+const extracionRouter = require("./router.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
