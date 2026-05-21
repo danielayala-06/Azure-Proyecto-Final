@@ -8,12 +8,17 @@ console.log(URL);
 document.addEventListener("DOMContentLoaded", () => {
     // Referencia a los elementos de la vista
     const form = document.getElementById("form-text");
+    const btnEnviar = document.getElementById("btnEnviar");
+    let activo = true; // para el boton
+
     const containterRes = document.querySelector(".container-results");
     const radioOptions = document.querySelectorAll(".form-check-input");
 
     // Detenemos el envio del formulario y enviamos los datos a AZURE
     form.addEventListener("submit", async (e) => {
         e.preventDefault(); // Evitamos el envio del formulario(recargar la pagina)
+
+        toogleButtonEnviar(); // Desactivamos el boton de enviar
 
         // Obtenemos el valor del input en el formulario
         const inputText = document.getElementById("text-input").value;
@@ -23,8 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Enviamos los datos al backend espereando la respuesta
         const results = await enviarTextoExtraccion(inputText);
-        console.log("===================resultados========================");
-        console.log(results);
+
         // Obtenemos los filtros
         let filtros = obtenerFiltros();
 
@@ -35,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         resultadosFiltrados.forEach((result) => {
             containterRes.appendChild(crearCard(result));
         });
+
+        toogleButtonEnviar(); // Activamos el boton envair
     });
 
     // Funcion para enviar un texto a la API del backend y esperamos su respuesta
@@ -77,25 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Agregamos atributos al div
         div.classList.add("card");
+        div.classList.add("border-primary");
         div.style.width = "13 rem;";
 
         // Agregamos el cuerpo del card
         div.innerHTML = ` <div class="card-body">
-                             <h5 class="card-title fs-5">${data.category}</h5>
+                             <h5 class="card-title fs-5 text-primary">${data.category}</h5>
                              <p class="card-text">${data.text}</p>
                           </div>
                           <ul class="list-group list-group-flush">
-                             <li class="list-group-item">Confidence: ${(data.confidenceScore * 100).toFixed(2)}</li>
+                             <li class="list-group-item text-primary">Confidence: ${(data.confidenceScore * 100).toFixed(2)}</li>
                           </ul>`;
         // Devolvemos el elemento previamente creado
         return div;
     }
-
-    data = {
-        category: "telefono",
-        text: "972694704",
-        confidence: 0.85,
-    };
 
     // Funcion para obtener los filtros a aplicar
     function obtenerFiltros() {
@@ -120,5 +121,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         return resultadosFiltrados;
+    }
+
+    // Funcion para activar y desactivar el boton de enviar
+    function toogleButtonEnviar() {
+        activo = !activo; // Cambia de estado
+
+        btnEnviar.innerHTML = ""; //Limpiamos el boton enviar
+
+        if (!activo) {
+            btnEnviar.setAttribute("disabled", "");
+            btnEnviar.innerHTML = `<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                    <span role="status">Cargando...</span>`;
+        } else {
+            btnEnviar.removeAttribute("disabled");
+            btnEnviar.innerHTML = "Enviar";
+        }
+
+        btnEnviar.disable = !activo;
     }
 });
