@@ -13,7 +13,7 @@ exports.detectarObjetos = async (req, res) => {
 
 	if (!body || !body.url) {
 		return res.status(400).json({
-			error: "No se enviaron datos a procesar!",
+			errores: "No se enviaron datos a procesar!",
 		});
 	}
 
@@ -61,7 +61,7 @@ exports.detectarObjetos = async (req, res) => {
 	} catch (error) {
 		return res.status(500).json({
 			mensaje: "Ha ocurrido un error enviando los datos a AZURE!",
-			error: error,
+			errores: error,
 		});
 		console.log(`Error en el servicio: ${error}`);
 	}
