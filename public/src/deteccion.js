@@ -6,16 +6,35 @@ const URL = `${host}:${port}/api/deteccion`;
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form-text"); // Obtenemos el formulario
   const btnEnviar = document.getElementById("btnEnviar"); // Obtenemos el boton para enviar el form
-  let inputUrl = null; // La URL
+
+  // URL  de la imagen
+  let inputUrl = null;
+
+  // Para renderizar las imagenes
   const containerResults = document.querySelector(".container-results");
   const containerImg = document.querySelector(".container-img");
-  // Detenemos el envio del formulario
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    inputUrl = document.getElementById("text-input").value; // Obtenemos la URL enviada por el form
 
-    console.log(inputUrl);
-    if (!inputUrl) return alert("Ingrese una URL porfavor");
+  let activo = true; // para el boton de enviar datos
+
+  form.addEventListener("submit", async (event) => {
+    // Evitamos el envio del formulario
+    event.preventDefault();
+
+    // Obtenemos la URL de la imagen enviada por el fomulario
+    inputUrl = document.getElementById("text-input").value;
+
+    // En caso de no haber enviado la URL
+    if (!inputUrl)
+      return alert(
+        "Ingrese una URL de la imagen antes de enviar el formulario",
+      );
+    // Desactivamos el boton de enviar
+    toogleButtonEnviar(); 
+
+
+    // Limpiamos los contenedores de las imagenes
+    containerResults.innerHTML = "";
+    containerImg.innerHTML = "";
 
     //Renderizamos la imagen original
     const img = document.createElement("img");
@@ -23,20 +42,32 @@ document.addEventListener("DOMContentLoaded", () => {
     img.classList.add("img", "img-fluid");
     containerImg.appendChild(img);
 
-    // Enviamos la imagen al endpoint
+    // Enviamos la imagen al endpoint y guardamos la respuesta en data
     const data = await sendURL(inputUrl);
-    console.log(data.data);
+
+    if(!data){
+      toogleButtonEnviar(); // Volvemos a activar el boton
+      return alert('Error en el servidor')
+    }
 
     // Renderizamos la salida de la imagen:
     console.log("==== Comenzando la renderizacion de datos... ====");
     const objetos = data.data.objects;
     renderResults(objetos);
+
+    // Volvemos a activar el boton 
+    toogleButtonEnviar();
   });
 
-  // Funcion para enviar la URL de la imagen al endpoint
+  /**
+   * Envia la URL de la imagen y devuelve los datos obtenidos del endpoint
+   * @param {string} urlImagen 
+   * @returns {object} data obtenida del endpoint
+   */
   async function sendURL(urlImagen) {
     // Validamos la URL
     if (!urlImagen || !urlImagen.trim()) {
+      toogleButtonEnviar(); // Volvemos a activar el boton
       return alert("URL de la imagen no encontrado");
     }
 
@@ -57,56 +88,73 @@ document.addEventListener("DOMContentLoaded", () => {
       // Devolvemos los datos al front
       return res;
     } catch (error) {
+      toogleButtonEnviar(); // Volvemos a activar el boton en caso de un error
       // Devolvemo en caso de error
       return error;
     }
   }
 
-  function renderResults(results = array) {
-    console.log("==== Creando el canvas... ====");
-
+  /**
+   * Renderiza un canvas con los objetos detectados en la imagen
+   * @param {array} results 
+   */
+  function renderResults(results) {
     // Creamos el canvas
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
+    // Creamos una imagen con la URL del input
     const img = document.createElement("img");
     img.src = inputUrl;
     img.classList.add("img", "img-fluid");
 
     img.onload = () => {
+      // Le damos el tamanio de la imagen al canvas
       canvas.width = img.width;
       canvas.height = img.height;
 
+      // Dibujamos la imagen en el canvas
       ctx.drawImage(img, 0, 0);
 
+      // Canvas que renderizaremos
       let finalCanvas = canvas;
-      // Lo volvemos responsive
-      finalCanvas.classList.add("img-fluid");
 
+      // Iteramos por cada resultado => objeto identificado por AZURE
       results.forEach((result) => {
-        finalCanvas = renderRectangule(finalCanvas, result.rectangle);
+        finalCanvas = renderRectangule(
+          finalCanvas,
+          result.rectangle,
+          result.object,
+          result.confidence,
+        );
       });
 
-      // 4. Mostrar SOLO el resultado final
+      // Para que la imagen sea responsive
       finalCanvas.classList.add("img-fluid");
+
+      // Cargamos el canvas en el container de resultados
       containerResults.appendChild(finalCanvas);
 
       console.log("==== Listo! ====");
     };
   }
 
-  // Renderiza un cuadrado en el canvas y devuelve el canvas con el cuadrado generado
-  function renderRectangule(oldCanvas, { x, y, w, h }) {
-    const newCanvas = document.createElement("canvas");
-    // copiamos el tamanio
-    newCanvas.width = oldCanvas.width;
-    newCanvas.height = oldCanvas.height;
-
-    // Lo volvemos responsive
-
-    // Obtenemos el contexto del nuevo canvas
-    const ctx = newCanvas.getContext("2d");
-    ctx.drawImage(oldCanvas, 0, 0);
+  /**
+   * Renderiza un cuadrado en el canvas y devuelve un canvas con el cuadrado generado
+   * @param {*} oldCanvas 
+   * @param {*} param1 
+   * @param {*} nombreObjeto 
+   * @param {*} confianza 
+   * @returns 
+   */
+  function renderRectangule(
+    canvas,
+    { x, y, w, h },
+    nombreObjeto,
+    confianza,
+  ) {
+    // Obtenemo sel contexto de la imagen
+    const ctx = canvas.getContext("2d");
 
     //Dibujamos el rectangulo
     ctx.fillStyle = "rgba(255,255,255,0.5)";
@@ -117,6 +165,40 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.lineWidth = 2;
     ctx.strokeRect(x, y, w, h);
 
-    return newCanvas;
+    // Renderizamos el nombre del objeto detectado con la confianza
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "blue";
+
+    ctx.fillText(`Objeto: ${nombreObjeto}`, x, y + 15);
+
+    // Renderizamos la confianza
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+
+    // Formateamos a un formato adecuado
+    confianza = (confianza * 100).toFixed(2);
+    ctx.fillText(`Confianza: ${confianza}`, x, y + 32);
+
+    return canvas;
+  }
+
+  /**
+   * Desactiva o activa el boton para enviar el formulario
+   */
+  function toogleButtonEnviar() {
+      activo = !activo; // Cambia de estado
+
+      btnEnviar.innerHTML = ""; //Limpiamos el boton enviar
+
+      if (!activo) {
+          btnEnviar.setAttribute("disabled", "");
+          btnEnviar.innerHTML = `<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                  <span role="status">Cargando...</span>`;
+      } else {
+          btnEnviar.removeAttribute("disabled");
+          btnEnviar.innerHTML = "Enviar";
+      }
+
+      btnEnviar.disable = !activo;
   }
 });
