@@ -25,9 +25,14 @@ app.get("/extraccion", (req, res) => {
   res.sendFile(path.join(__dirname, "public/views/modules", "extraccion.html"));
 });
 
-// Redirijimos a la vista de extraccion
+// Redirijimos a la vista de deteccion
 app.get("/deteccion", (req, res) => {
   res.sendFile(path.join(__dirname, "public/views/modules", "deteccion.html"));
+});
+
+// Redirijimos a la vista de analisis
+app.get("/analisis", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "analisis.html"));
 });
 
 //Comunicación se realizará JSON
