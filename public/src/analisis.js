@@ -116,24 +116,26 @@ document.addEventListener("DOMContentLoaded", () => {
       // Dibujamos la imagen en el canvas
       ctx.drawImage(img, 0, 0);
 
-      // Canvas que renderizaremos
-      let finalCanvas = canvas;
 
       // Iteramos por cada resultado => objeto identificado por AZURE
       results.forEach((result) => {
-        finalCanvas = renderRectangule(
-          finalCanvas,
+        let newCanvas = renderRectangule(
+          canvas,
           result.rectangle,
           result.object,
           result.confidence,
         );
+        // Lo pintamos en el container
+        newCanvas.classList.add("img-fluid");
+        renderCard(newCanvas, result.object, result.confidence);
+        containerResults.appendChild(newCanvas);
       });
 
       // Para que la imagen sea responsive
-      finalCanvas.classList.add("img-fluid");
+      canvas.classList.add("img-fluid");
 
       // Cargamos el canvas en el container de resultados
-      containerResults.appendChild(finalCanvas);
+      //containerResults.appendChild(finalCanvas);
 
       console.log("==== Listo! ====");
     };
@@ -148,38 +150,44 @@ document.addEventListener("DOMContentLoaded", () => {
    * @returns 
    */
   function renderRectangule(
-    canvas,
-    { x, y, w, h },
-    nombreObjeto,
-    confianza,
-  ) {
-    // Obtenemo sel contexto de la imagen
-    const ctx = canvas.getContext("2d");
+  canvas,
+  { x, y, w, h },
+  nombreObjeto,
+  confianza,
+) {
 
-    //Dibujamos el rectangulo
-    ctx.fillStyle = "rgba(255,255,255,0.5)";
-    ctx.fillRect(x, y, w, h);
+  // Nuevo canvas SOLO del tamaño del objeto
+  const newCanvas = document.createElement("canvas");
 
-    // Dibujamos el borde del rectangulo
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, w, h);
+  newCanvas.width = w;
+  newCanvas.height = h;
 
-    // Renderizamos el nombre del objeto detectado con la confianza
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "blue";
+  const ctx = newCanvas.getContext("2d");
 
-    ctx.fillText(`Objeto: ${nombreObjeto}`, x, y + 15);
+  // RECORTAR SOLO EL OBJETO
+  ctx.drawImage(
+    canvas, // imagen origen
+    x, y,   // desde dónde cortar
+    w, h,   // tamaño del recorte
+    0, 0,   // dónde pegarlo
+    w, h    // tamaño final
+  );
 
-    // Renderizamos la confianza
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "black";
+  // Borde opcional
+  ctx.strokeStyle = "red";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(0, 0, w, h);
 
-    // Formateamos a un formato adecuado
-    confianza = (confianza * 100).toFixed(2);
-    ctx.fillText(`Confianza: ${confianza}`, x, y + 32);
+  // Texto
+  ctx.font = "18px Arial";
+  ctx.fillStyle = "white";
 
-    return canvas;
+  confianza = (confianza * 100).toFixed(2);
+
+  ctx.fillText(nombreObjeto, 10, 20);
+  ctx.fillText(`${confianza}%`, 10, 40);
+
+  return newCanvas;
   }
 
   /**

@@ -35,6 +35,26 @@ app.get("/analisis", (req, res) => {
   res.sendFile(path.join(__dirname, "public/views/modules", "analisis.html"));
 });
 
+// Redirijimos a la vista de anonimacion
+app.get("/anonimacion", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "anonimacion.html"));
+});
+
+// Redirijimos a la vista de OCR
+app.get("/ocr", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "ocr.html"));
+});
+
+// Redirijimos a la vista de preguntas
+app.get("/preguntas", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "preguntas.html"));
+});
+
+// Redirijimos a la vista de resumen
+app.get("/resumen", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "resumen.html"));
+});
+
 //Comunicación se realizará JSON
 app.use(express.json());
 

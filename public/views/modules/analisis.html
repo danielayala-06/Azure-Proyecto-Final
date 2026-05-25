@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analisis de imagenesz</title>
+  <title>Analisis de imagenes</title>
 
   <!-- Bootstrap CDN-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,6 +21,7 @@
       Atras
     </button>
     <div class="d-flex gap-2 justify-content-center">
+        <!-- Container principal -->
       <div class="d-flex flex-column my-5 w-75 gap-3 container">
         <!-- Container Input -->
         <div class="containter-box1 shadow">
@@ -53,16 +54,45 @@
               <div class="shadow w-100 border my-2 mb-4"></div>
 
               <div class="d-flex flex-wrap gap-2 justify-content-center">
-                <!-- Container de la imagen subida -->
-                <!-- <div class="container-img" style="width: 28rem"></div> -->
 
                 <!-- Container de los resultados filtrados -->
-                <div class="container-results"></div>
+                <div class="container-results d-flex flex-wrap gap-2 justify-content-center">
+                    <!-- Aqui iran los resultados renderizados -->
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.magnific.com/foto-gratis/feliz-joven-compania-amigos-sonrientes-sentados-parque-sobre-cesped-patinete-electrico-hombre-mujer-divirtiendose-juntos_285396-8855.jpg" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <ul class="list-group-flush" style="padding:0;">
+                                <li class="list-group-item"><strong>Tag:</strong> Sunglases</li>
+                                <li class="list-group-item"><strong>Confidence:</strong> 0.32</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.magnific.com/foto-gratis/feliz-joven-compania-amigos-sonrientes-sentados-parque-sobre-cesped-patinete-electrico-hombre-mujer-divirtiendose-juntos_285396-8855.jpg" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <ul class="list-group-flush" style="padding:0;">
+                                <li class="list-group-item"><strong>Tag:</strong> Sunglases</li>
+                                <li class="list-group-item"><strong>Confidence:</strong> 0.32</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.magnific.com/foto-gratis/feliz-joven-compania-amigos-sonrientes-sentados-parque-sobre-cesped-patinete-electrico-hombre-mujer-divirtiendose-juntos_285396-8855.jpg" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <ul class="list-group-flush" style="padding:0;">
+                                <li class="list-group-item"><strong>Tag:</strong> Sunglases</li>
+                                <li class="list-group-item"><strong>Confidence:</strong> 0.32</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
               </div>
             </div>
           </div>
           <!-- Fin del card body -->
         </div>
+
       </div>
       <!-- fin del main layout -->
 
@@ -73,17 +103,28 @@
               <h5 class="card-title fw-light">Vista previa</h5>
               <!-- Linea de separacion -->
               <div class="shadow w-100 border my-2 mb-4"></div>
-
-              <div class="d-flex flex-wrap gap-2 justify-content-center">
                 <!-- Container de la imagen subida -->
-                <div class="container-img" style="width: 35rem"></div>
-              </div>
+                <div class="container-img text-center"></div>
             </div>
           </div>
-
-          <!-- Fin del card body -->
         </div>
+
+        <!-- Container tags -->
+         <div class="container-tags shadow my-5">
+          <div class="card px-3">
+            <!-- Cuerpo del card -->
+            <div class="card-body">
+              <h5 class="card-title fw-light">Tags</h5>
+              <!-- Linea de separacion -->
+              <div class="shadow w-100 border my-2 mb-4"></div>
+              <!-- Aqui se renderizaran los tags encontrados -->
+              <div class="container-tags d-flex flex-wrap gap-2" style="width: 35rem"></div>
+            </div>
+          </div>
+        </div> <!-- Fin del del container tags -->
+
       </aside>
+      <!-- F/in al de aside -->
     </div>
   </main>
 
