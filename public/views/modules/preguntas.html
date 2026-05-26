@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuesta de preguntas</title>
+
+    <!-- Bootstrap CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Bootstrap ICONS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-light">
+    <main class="container">
+        <button class="btn btn-sm btn-primary position-fixed top-0 start-0 m-3" onclick="window.history.back()">
+            <i class="bi bi-arrow-left"></i>
+            Atras
+        </button>
+        <div class="d-flex gap-2 justify-content-center">
+            <!-- Container principal -->
+            <div class="d-flex flex-column my-5 w-75 gap-3 container">
+
+                <!-- Container Input -->
+                <div class="containter-box1 shadow">
+                    <div class="card px-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-light">Datos de entrada</h5>
+                            <div class="shadow w-100 border my-2"></div>
+                            <form method="get" id="form-text">
+                                <!-- Contexto -->
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="text-input" style="height: 8rem;" required></textarea>
+                                    <label for="text-input">Contexto (texto de referencia):</label>
+                                </div>
+                                <!-- Pregunta -->
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="pregunta-input" required />
+                                    <label for="pregunta-input">Pregunta:</label>
+                                </div>
+                                <div class="text-end my-3">
+                                    <button type="reset" class="btn btn-secondary">Limpiar</button>
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar" form="form-text">
+                                        Enviar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container Result -->
+                <div class="containter-box2 shadow">
+                    <div class="card px-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-light">Salida de datos</h5>
+                            <!-- Linea de separacion -->
+                            <div class="shadow w-100 border my-2 mb-4"></div>
+
+                            <div class="container-results d-flex flex-column gap-3">
+                                <!-- Aqui se renderizan las respuestas desde JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin del card body -->
+                </div>
+
+            </div>
+            <!-- Fin del main layout -->
+
+            <aside class="w-25">
+                <div class="container-aside shadow my-5">
+                    <div class="card px-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-light">Informacion</h5>
+                            <!-- Linea de separacion -->
+                            <div class="shadow w-100 border my-2 mb-4"></div>
+                            <p class="text-muted small">
+                                <i class="bi bi-chat-quote text-primary"></i>
+                                Realiza preguntas sobre un texto de referencia. AZURE buscara la mejor respuesta dentro del contexto proporcionado.
+                            </p>
+                            <!-- Mejor confianza obtenida -->
+                            <div class="text-center mt-3">
+                                <h6 class="text-muted fw-light">Mejor confianza</h6>
+                                <span class="badge bg-primary fs-5 container-confianza">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- Fin del aside -->
+
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+    <!--  -->
+    <script src="/src/preguntas.js"></script>
+</body>
+
+</html>
