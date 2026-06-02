@@ -55,6 +55,16 @@ app.get("/resumen", (req, res) => {
   res.sendFile(path.join(__dirname, "public/views/modules", "resumen.html"));
 });
 
+// Redirijimos a la vista de ChatGPT
+app.get("/chatgpt", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "chatgpt.html"));
+});
+
+// Redirijimos a la vista de chat con Phi-4
+app.get("/chat", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/views/modules", "chat.html"));
+});
+
 //Comunicación se realizará JSON
 app.use(express.json());
 

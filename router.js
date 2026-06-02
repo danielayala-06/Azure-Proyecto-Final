@@ -9,6 +9,8 @@ const anonimacionController = require("./controllers/anonimacion");
 const ocrController = require("./controllers/ocr");
 const preguntasController = require("./controllers/preguntas");
 const resumenController = require("./controllers/resumen");
+const chatgptController = require("./controllers/chatgpt");
+const chatController = require("./controllers/chat");
 
 // Rutas para la logica de nuestro proyecto
 router.post("/extraccion", extraccionController.extraerDatos); //
@@ -18,4 +20,6 @@ router.post("/anonimacion", anonimacionController.anonimizarDatos); //
 router.post("/ocr", ocrController.leerTexto); //
 router.post("/preguntas", preguntasController.responderPregunta); //
 router.post("/resumen", resumenController.resumirTexto); //
+router.post("/chatgpt", chatgptController.preguntarGPT); //
+router.post("/chat", chatController.preguntarPhi); //
 module.exports = router;
