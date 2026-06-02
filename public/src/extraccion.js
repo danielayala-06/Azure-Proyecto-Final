@@ -1,5 +1,7 @@
 // Rutas para las API's
-const host = "http://localhost";
+require('dotenv').config
+
+const host = process.env.HOST
 const port = "3000";
 const URL = `${host}:${port}/api/extraccion`;
 
