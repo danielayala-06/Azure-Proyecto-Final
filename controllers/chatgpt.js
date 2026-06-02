@@ -1,4 +1,3 @@
-require("dotenv").config();
 
 // Datos de acceso al servicio de Azure OpenAI
 const AZURE_ENDPOINT = process.env.CHATGPT_ENDPOINT;

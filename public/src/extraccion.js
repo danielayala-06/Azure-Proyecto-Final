@@ -1,7 +1,5 @@
 // Rutas para las API's
-require('dotenv').config
-
-const host = process.env.HOST
+const host = "https://azure-proyecto-final.onrender.com/"
 const port = "3000";
 const URL = `${host}:${port}/api/extraccion`;
 
