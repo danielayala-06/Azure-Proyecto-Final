@@ -1,7 +1,7 @@
 // Rutas para las API's
-const host = "http://localhost";
-const port = "3000";
-const URL = `${host}:${port}/api/ocr`;
+const host = "https://azure-proyecto-final.onrender.com"
+const URL = `${host}/api/ocr`;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form-text"); // Obtenemos el formulario

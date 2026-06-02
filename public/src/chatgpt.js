@@ -1,7 +1,7 @@
 // Rutas para las API's
-const host = "http://localhost";
-const port = "3000";
-const URL = `${host}:${port}/api/chatgpt`;
+const host = "https://azure-proyecto-final.onrender.com"
+const URL = `${host}/api/chatgpt`;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form-text"); // Formulario del chat
