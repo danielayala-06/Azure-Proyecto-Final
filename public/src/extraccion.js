@@ -1,7 +1,6 @@
 // Rutas para las API's
-const host = "https://azure-proyecto-final.onrender.com/"
-const port = "3000";
-const URL = `${host}:${port}/api/extraccion`;
+const host = "https://azure-proyecto-final.onrender.com"
+const URL = `${host}/api/extraccion`;
 
 console.log(URL);
 // Obtenemos los datos del front-end
