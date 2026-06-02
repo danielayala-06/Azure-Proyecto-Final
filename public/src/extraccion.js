@@ -72,7 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // En caso de que la respuesta no sea ok
             if (response.status !== 200) {
+                toogleButtonEnviar()
+
                 throw new Error("Error en la API");
+                return;
             }
 
             // Obtenemos la respuesta:
@@ -80,8 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return res;
         } catch (error) {
+            toogleButtonEnviar()
             console.error(error.message);
             throw new Error("Error al enviar los datos al backend");
+            return;
         }
     }
 
@@ -148,5 +153,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         btnEnviar.disable = !activo;
+    }
+
+    function errorHandler(codigo){
+
+        if(codigo => 400){
+            // Volvemos a activar el boton
+            toogleButtonEnviar();
+            alert('Error al enviar los datos')
+        }
+
     }
 });

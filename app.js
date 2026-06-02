@@ -2,11 +2,22 @@ require("dotenv").config();
 
 const express = require("express"); // Cargamos express
 const path = require("path"); // Rutaas de archivos para servir al FRONT
+const cors = require("cors");
+
 
 const router = require("./router.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// cors
+app.use(
+  cors({
+    origin: process.env.HOST,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // Middleware para servir archivos estáticos desde la carpeta "public"
 app.use(express.static(path.join(__dirname, "public")));
