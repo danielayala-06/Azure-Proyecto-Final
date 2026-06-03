@@ -201,11 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
     card.classList.add("card");
     card.style.width = "18rem";
 
-    // Convertimos el canvas a imagen para poder usarla dentro del card
-    const img = document.createElement("img");
-    img.src = canvas.toDataURL();
-    img.classList.add("card-img-top", "img-fluid");
-    img.alt = nombreObjeto;
+    // Usamos el canvas directamente como imagen del card para evitar
+    // el error de seguridad "tainted canvas" con imagenes de origen externo
+    canvas.classList.add("card-img-top");
 
     const cardBody = document.createElement("div");
     cardBody.classList.add("card-body");
@@ -217,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                               <li class="list-group-item"><strong>Confidence:</strong> ${confianzaFormateada}%</li>
                           </ul>`;
 
-    card.appendChild(img);
+    card.appendChild(canvas);
     card.appendChild(cardBody);
     containerResults.appendChild(card);
   }
