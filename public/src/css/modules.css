@@ -1,0 +1,50 @@
+/* Variables compartidas con el index */
+:root {
+  --primary-color: #2563eb;
+  --primary-light: #dbeafe;
+  --text-main: #0f172a;
+  --text-secondary: #64748b;
+  --card-border: #e2e8f0;
+}
+
+/* Fondo y tipografia iguales al index */
+body {
+  background: linear-gradient(to bottom, #f8fafc, #eef2ff) !important;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  color: var(--text-main);
+}
+
+/* Cards con efecto glassmorphism */
+.card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.03),
+    0 10px 30px rgba(37, 99, 235, 0.05) !important;
+}
+
+/* Mantenemos el borde azul en las cards de resultado */
+.card.border-primary {
+  border: 1px solid var(--primary-color) !important;
+}
+
+/* Titulos de los cards */
+.card-title {
+  color: var(--text-main);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Textos secundarios */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Separadores */
+.w-100.border {
+  border-color: var(--card-border) !important;
+  opacity: 0.6;
+}
