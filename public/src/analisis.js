@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Para renderizar las imagenes
   const containerResults = document.querySelector(".container-results");
   const containerImg = document.querySelector(".container-img");
+  const containerTags = document.querySelector("#tags-list");
 
   let activo = true; // para el boton de enviar datos
 
@@ -32,9 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     toogleButtonEnviar(); 
 
 
-    // Limpiamos los contenedores de las imagenes
+    // Limpiamos los contenedores
     containerResults.innerHTML = "";
     containerImg.innerHTML = "";
+    containerTags.innerHTML = "";
 
     //Renderizamos la imagen original
     const img = document.createElement("img");
@@ -53,7 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Renderizamos la salida de la imagen:
     console.log("==== Comenzando la renderizacion de datos... ====");
     const objetos = data.data.objects;
+    const caption = data.data.description?.captions?.[0];
+    const tags = data.data.tags;
+
+    renderDescripcion(caption);
     renderResults(objetos);
+    renderTags(tags);
 
     // Volvemos a activar el boton 
     toogleButtonEnviar();
@@ -218,6 +225,34 @@ document.addEventListener("DOMContentLoaded", () => {
     card.appendChild(canvas);
     card.appendChild(cardBody);
     containerResults.appendChild(card);
+  }
+
+  /**
+   * Muestra la descripcion/caption generada por Azure en la parte superior de los resultados
+   * @param {{ text: string, confidence: number } | undefined} caption
+   */
+  function renderDescripcion(caption) {
+    if (!caption) return;
+    const confianza = (caption.confidence * 100).toFixed(1);
+    const div = document.createElement("div");
+    div.classList.add("alert", "alert-primary", "w-100", "mb-3");
+    div.innerHTML = `<i class="bi bi-card-text me-2"></i><strong>Descripcion:</strong> ${caption.text}
+                     <span class="badge bg-primary ms-2">${confianza}%</span>`;
+    containerResults.insertBefore(div, containerResults.firstChild);
+  }
+
+  /**
+   * Renderiza los tags detectados como badges en el aside
+   * @param {Array<{ name: string, confidence: number }>} tags
+   */
+  function renderTags(tags) {
+    if (!tags || !tags.length) return;
+    tags.forEach((tag) => {
+      const badge = document.createElement("span");
+      badge.classList.add("badge", "bg-secondary", "me-1", "mb-1");
+      badge.textContent = `${tag.name} (${(tag.confidence * 100).toFixed(0)}%)`;
+      containerTags.appendChild(badge);
+    });
   }
 
   /**
