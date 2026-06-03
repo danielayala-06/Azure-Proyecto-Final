@@ -125,10 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
           result.object,
           result.confidence,
         );
-        // Lo pintamos en el container
+        // Creamos el card con el canvas recortado y lo pintamos en el container
         newCanvas.classList.add("img-fluid");
         renderCard(newCanvas, result.object, result.confidence);
-        containerResults.appendChild(newCanvas);
       });
 
       // Para que la imagen sea responsive
@@ -188,6 +187,39 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx.fillText(`${confianza}%`, 10, 40);
 
   return newCanvas;
+  }
+
+  /**
+   * Crea un card Bootstrap con la imagen del objeto detectado y sus datos,
+   * y lo agrega al container de resultados
+   * @param {HTMLCanvasElement} canvas - Canvas con el objeto recortado
+   * @param {string} nombreObjeto - Nombre del objeto detectado por AZURE
+   * @param {number} confianza - Nivel de confianza (0-1)
+   */
+  function renderCard(canvas, nombreObjeto, confianza) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.style.width = "18rem";
+
+    // Convertimos el canvas a imagen para poder usarla dentro del card
+    const img = document.createElement("img");
+    img.src = canvas.toDataURL();
+    img.classList.add("card-img-top", "img-fluid");
+    img.alt = nombreObjeto;
+
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    const confianzaFormateada = (confianza * 100).toFixed(2);
+
+    cardBody.innerHTML = `<ul class="list-group-flush" style="padding:0;">
+                              <li class="list-group-item"><strong>Tag:</strong> ${nombreObjeto}</li>
+                              <li class="list-group-item"><strong>Confidence:</strong> ${confianzaFormateada}%</li>
+                          </ul>`;
+
+    card.appendChild(img);
+    card.appendChild(cardBody);
+    containerResults.appendChild(card);
   }
 
   /**
